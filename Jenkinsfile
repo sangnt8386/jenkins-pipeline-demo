@@ -1,0 +1,57 @@
+pipeline {
+    agent { label 'Jenkins-Agent' }
+
+    environment {
+        APP_NAME = "flask-app"
+        VENV = "venv"
+    }
+
+    stages {
+
+        stage("Cleanup Workspace") {
+            steps {
+                cleanWs()
+            }
+        }
+
+        stage("Checkout Code") {
+            steps {
+                git branch: 'main',
+                    credentialsId: 'github',
+                    url: 'https://github.com/<your-username>/<your-repo>.git'
+            }
+        }
+
+        stage("Setup Python Env") {
+            steps {
+                sh '''
+                python3 --version
+                python3 -m venv ${VENV}
+                . ${VENV}/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage("Run Tests") {
+            steps {
+                sh '''
+                . ${VENV}/bin/activate
+                pytest || true
+                '''
+            }
+        }
+
+        stage("Run Flask App (Test)") {
+            steps {
+                sh '''
+                . ${VENV}/bin/activate
+                export FLASK_APP=app.py
+                flask run --host=0.0.0.0 --port=5000 &
+                sleep 5
+                '''
+            }
+        }
+    }
+}
