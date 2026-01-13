@@ -7,15 +7,7 @@ pipeline {
     }
 
     stages {
-        stage("Setup Python Env") {
-    steps {
-        sh """
-        python3.9 -m venv venv
-        . venv/bin/activate
-        pip install -r requirements.txt
-        """
-    }
-}
+        
 
         stage("Cleanup Workspace") {
             steps {
@@ -32,16 +24,14 @@ pipeline {
         }
 
         stage("Setup Python Env") {
-            steps {
-                sh '''
-                python3 --version
-                python3 -m venv ${VENV}
-                . ${VENV}/bin/activate
-                pip install --upgrade pip
-                pip install -r requirements.txt
-                '''
-            }
-        }
+    steps {
+        sh """
+        python3.9 -m venv venv
+        . venv/bin/activate
+        pip install -r requirements.txt
+        """
+    }
+}
 
         stage("Run Tests") {
             steps {
