@@ -1,39 +1,40 @@
-🚀 Modern DevSecOps Pipeline: Python Flask on Kubernetes
-Dự án này thực hiện chuyển đổi một ứng dụng Python Flask truyền thống sang kiến trúc Cloud-Native. Toàn bộ vòng đời phát triển phần mềm được tự động hóa thông qua quy trình CI/CD Pipeline chuyên nghiệp, áp dụng tiêu chuẩn GitOps và bảo mật DevSecOps.
+# 🚀 Python Feedback App: End-to-End DevSecOps Pipeline
 
-🏗️ Quy trình hệ thống (The Workflow)
-Hệ thống được thiết kế theo luồng khép kín đảm bảo tính liên tục và an toàn:
+Dự án thực hiện chuyển đổi ứng dụng **Python Flask** truyền thống sang kiến trúc **Cloud-Native**. Toàn bộ vòng đời phát triển được tự động hóa qua quy trình **CI/CD** hiện đại, áp dụng tiêu chuẩn **GitOps** và bảo mật **DevSecOps**.
 
-Continuous Integration (CI): * Jenkins đóng vai trò điều phối chính (Orchestrator).
 
-Kiểm tra chất lượng mã nguồn tự động với SonarQube (Static Code Analysis).
 
-Đóng gói ứng dụng bằng Docker để đảm bảo tính nhất quán giữa các môi trường.
+---
 
-Kiểm soát an toàn hình ảnh (Image Security) bằng Trivy Scan trước khi đẩy lên Registry.
+## 🏗️ Quy trình hệ thống (Workflow)
 
-Continuous Delivery (CD):
+Hệ thống được thiết kế theo luồng khép kín (Closed-loop) đảm bảo tính liên tục và an toàn:
 
-Áp dụng mô hình GitOps với ArgoCD.
+### 🔹 Continuous Integration (CI)
+* **Orchestrator:** **Jenkins** điều phối toàn bộ pipeline dưới dạng code (Pipeline as Code).
+* **Code Quality:** Phân tích mã nguồn tự động với **SonarQube** (Static Code Analysis).
+* **Containerization:** Đóng gói ứng dụng bằng **Docker**, đảm bảo tính nhất quán môi trường.
+* **Security:** Quét lỗ hổng hình ảnh (CVEs) bằng **Trivy Scan** trước khi đẩy lên Registry.
 
-Jenkins tự động cập nhật phiên bản mới (Image Tag) vào kho lưu trữ cấu hình (Manifest Repo).
+### 🔹 Continuous Delivery (CD)
+* **GitOps Model:** Sử dụng **ArgoCD** để quản lý trạng thái thực tế của cụm máy chủ.
+* **Auto-Update:** Jenkins tự động cập nhật **Image Tag** mới vào **Manifest Repo** trên GitHub.
+* **Deployment:** ArgoCD tự động đồng bộ hóa ứng dụng lên cụm **Kubernetes (K8s)** ngay khi có thay đổi.
 
-ArgoCD tự động theo dõi và đồng bộ trạng thái ứng dụng lên cụm Kubernetes (K8s).
 
-🛠️ Công cụ & Công nghệ sử dụng
-Ngôn ngữ & DB: Python (Flask), PostgreSQL.
 
-Hạ tầng: Docker, Kubernetes (EKS/Local Cluster).
+---
 
-CI/CD & GitOps: Jenkins, ArgoCD.
+## 🛠️ Công cụ & Công nghệ
+* **Ứng dụng:** Python (Flask), PostgreSQL.
+* **Hạ tầng:** Docker, Kubernetes (EKS/Local Cluster).
+* **CI/CD & GitOps:** Jenkins, ArgoCD.
+* **Bảo mật:** SonarQube, Trivy Scan.
+* **Quản lý mã nguồn:** Git (GitHub).
 
-Bảo mật & Chất lượng: SonarQube, Trivy Scan.
+---
 
-Quản lý mã nguồn: Git (GitHub).
-
-🌟 Kết quả đạt được
-Tự động hóa 100%: Loại bỏ thao tác thủ công từ khâu Code đến Deployment.
-
-Shift-left Security: Phát hiện lỗ hổng bảo mật và lỗi code ngay trong quá trình Build.
-
-Khả năng mở rộng: Ứng dụng sẵn sàng chạy trên môi trường Production với khả năng tự phục hồi và mở rộng của Kubernetes.
+## 🌟 Kết quả đạt được
+* **Tự động hóa 100%:** Loại bỏ hoàn toàn thao tác thủ công từ khâu Code đến Deployment.
+* **Shift-left Security:** Phát hiện sớm các rủi ro bảo mật ngay trong quá trình Build.
+* **Scalability:** Ứng dụng sẵn sàng vận hành trên Production với khả năng tự phục hồi và mở rộng của K8s.
