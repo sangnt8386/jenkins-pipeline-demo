@@ -57,7 +57,7 @@ pipeline {
     steps {
         script {
             // Đảm bảo credentialsId khớp với ID bạn đặt trong Jenkins (sonarqube-sever hoặc jenkins-sonarqube-token)
-            withSonarQubeEnv(credentialsId: 'sonarqube-sever') { 
+            withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
                 sh """
                 ${SCANNER_HOME}/bin/sonar-scanner \
                 -Dsonar.projectKey=flask-app \
