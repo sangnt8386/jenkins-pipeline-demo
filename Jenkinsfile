@@ -56,14 +56,15 @@ pipeline {
         stage("SonarQube Analysis") {
     steps {
         script {
-            withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+            // Đảm bảo credentialsId khớp với ID bạn đặt trong Jenkins (sonarqube-sever hoặc jenkins-sonarqube-token)
+            withSonarQubeEnv(credentialsId: 'sonarqube-sever') { 
                 sh """
                 ${SCANNER_HOME}/bin/sonar-scanner \
                 -Dsonar.projectKey=flask-app \
                 -Dsonar.sources=. \
-                -Dsonar.exclusions=venv/**,**/*.spec,tests/** \
                 -Dsonar.language=py \
-                -Dsonar.python.version=3.9
+                -Dsonar.python.version=3.9 \
+                -Dsonar.exclusions=venv/**,tests/**,**/*.html,**/*.css,**/*.js
                 """
             }
         }
