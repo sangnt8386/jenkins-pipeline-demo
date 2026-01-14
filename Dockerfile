@@ -1,4 +1,4 @@
-FROM python:3.7.2-slim
+FROM python:3.7-buster
 
 # Cài đặt các thư viện để hỗ trợ build thư viện Python
 RUN apt-get update && apt-get install -y \
