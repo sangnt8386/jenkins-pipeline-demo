@@ -4,7 +4,7 @@ pipeline {
     environment {
         APP_NAME = "flask-app"
         VENV = "venv"
-        SCANNER_HOME = tool 'sonar-scanner'
+        SCANNER_HOME = tool 'sonarqube-scanner'
     }
 
     stages {
