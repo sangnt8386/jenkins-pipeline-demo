@@ -26,7 +26,7 @@ Hệ thống được thiết kế theo luồng khép kín (Closed-loop) đảm 
 ---
 
 ## 🛠️ Công cụ & Công nghệ
-* **Ứng dụng:** Python (Flask), PostgreSQL.
+* **Ứng dụng:** Python.
 * **Hạ tầng:** Docker, Kubernetes (EKS/Local Cluster).
 * **CI/CD & GitOps:** Jenkins, ArgoCD.
 * **Bảo mật:** SonarQube, Trivy Scan.
@@ -38,3 +38,4 @@ Hệ thống được thiết kế theo luồng khép kín (Closed-loop) đảm 
 * **Tự động hóa 100%:** Loại bỏ hoàn toàn thao tác thủ công từ khâu Code đến Deployment.
 * **Shift-left Security:** Phát hiện sớm các rủi ro bảo mật ngay trong quá trình Build.
 * **Scalability:** Ứng dụng sẵn sàng vận hành trên Production với khả năng tự phục hồi và mở rộng của K8s.
+
