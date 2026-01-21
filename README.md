@@ -1,6 +1,6 @@
 # 🚀 Python Feedback App: End-to-End DevSecOps Pipeline
 
-Dự án thực hiện chuyển đổi ứng dụng **Python Flask** truyền thống sang kiến trúc **Cloud-Native**. Toàn bộ vòng đời phát triển được tự động hóa qua quy trình **CI/CD** hiện đại, áp dụng tiêu chuẩn **GitOps** và bảo mật **DevSecOps**.
+Dự án thực hiện chuyển đổi ứng dụng **Python** truyền thống sang kiến trúc **Cloud-Native**. Toàn bộ vòng đời phát triển được tự động hóa qua quy trình **CI/CD** hiện đại, áp dụng tiêu chuẩn **GitOps** và bảo mật **DevSecOps**.
 
 
 
@@ -38,4 +38,5 @@ Hệ thống được thiết kế theo luồng khép kín (Closed-loop) đảm 
 * **Tự động hóa 100%:** Loại bỏ hoàn toàn thao tác thủ công từ khâu Code đến Deployment.
 * **Shift-left Security:** Phát hiện sớm các rủi ro bảo mật ngay trong quá trình Build.
 * **Scalability:** Ứng dụng sẵn sàng vận hành trên Production với khả năng tự phục hồi và mở rộng của K8s.
+
 
