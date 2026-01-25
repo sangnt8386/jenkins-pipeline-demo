@@ -4,12 +4,9 @@ pipeline {
     environment {
         APP_NAME = "flask-app-pipeline"
         VENV = "venv"
-        
-	    
     }
 
     stages {
-        
 
         stage("Cleanup Workspace") {
             steps {
@@ -25,26 +22,38 @@ pipeline {
             }
         }
 
-        stage("Setup Python Env") {
-    steps {
-        sh """
-        python3 -m venv venv
-        . venv/bin/activate
-        pip install -r requirements.txt
-        """
-    }
-}
+        stage("Setup Python Environment") {
+            steps {
+                sh '''
+                python3 --version
+                python3 -m venv ${VENV}
+                . ${VENV}/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
+                '''
+            }
+        }
 
         stage("Run Tests") {
             steps {
                 sh '''
                 . ${VENV}/bin/activate
-                pytest || true
+                pytest
                 '''
             }
         }
-        
-        
-
+		stage("SonarQube Analysis") {
+            steps {
+                withSonarQubeEnv('sonarqube-server') {
+                    sh '''
+                    sonar-scanner \
+                      -Dsonar.projectKey=flask-app-pipeline \
+                      -Dsonar.sources=. \
+                      -Dsonar.language=py \
+                      -Dsonar.python.version=3
+                    '''
+                }
+            }
+        }
     }
 }
