@@ -46,7 +46,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqube-server') {
                     sh '''
-                    sonar-scanner \
+                    ${SCANNER_HOME}/bin/sonar-scanner \
                       -Dsonar.projectKey=flask-app-pipeline \
                       -Dsonar.sources=. \
                       -Dsonar.language=py \
@@ -55,5 +55,6 @@ pipeline {
                 }
             }
         }
+		
     }
 }
