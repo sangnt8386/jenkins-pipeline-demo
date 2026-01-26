@@ -14,7 +14,6 @@ pipeline {
     }
 
     stages {
-        
 
         stage("Cleanup Workspace") {
             steps {
@@ -25,20 +24,22 @@ pipeline {
         stage("Checkout Code") {
             steps {
                 git branch: 'main',
-                    credentialsId: 'github',
+                    credentialsId: 'sangnt8386',
                     url: 'https://github.com/sangnt8386/jenkins-pipeline-demo.git'
             }
         }
 
-        stage("Setup Python Env") {
-    steps {
-        sh """
-        python3.9 -m venv venv
-        . venv/bin/activate
-        pip install -r requirements.txt
-        """
-    }
-}
+        stage("Setup Python Environment") {
+            steps {
+                sh '''
+                python3 --version
+                python3 -m venv ${VENV}
+                . ${VENV}/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
+                '''
+            }
+        }
 
         stage("Run Tests") {
             steps {
@@ -48,43 +49,27 @@ pipeline {
                 '''
             }
         }
-        
-        stage("Run Flask App (Test)") {
+		stage("SonarQube Analysis") {
             steps {
-                sh '''
-                . ${VENV}/bin/activate
-                export FLASK_APP=app.py
-                flask run --host=0.0.0.0 --port=5000 &
-                sleep 5
-                '''
+                withSonarQubeEnv('sonarqube-server') {
+                    sh '''
+                    ${SCANNER_HOME}/bin/sonar-scanner \
+                      -Dsonar.projectKey=flask-app-pipeline \
+                      -Dsonar.sources=. \
+                      -Dsonar.language=py \
+                      -Dsonar.python.version=3
+                    '''
+                }
             }
         }
-        stage("SonarQube Analysis") {
-    steps {
-        script {
-            // Đảm bảo credentialsId khớp với ID bạn đặt trong Jenkins (sonarqube-sever hoặc jenkins-sonarqube-token)
-            withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
-                sh """
-                ${SCANNER_HOME}/bin/sonar-scanner \
-                -Dsonar.projectKey=flask-app \
-                -Dsonar.sources=. \
-                -Dsonar.language=py \
-                -Dsonar.python.version=3.9 \
-                -Dsonar.exclusions=venv/**,tests/**,**/*.html,**/*.css,**/*.js
-                """
-            }
+		stage("Quality Gate") {
+    		steps {
+        		script {
+            		waitForQualityGate abortPipeline: true
         }
     }
-}
-        stage("Quality Gate"){
-           steps {
-               script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
-                }	
-            }
-
-        }
-	    stage("Build & Push Docker Image") {
+}		
+		stage("Build & Push Docker Image") {
             steps {
                 script {
                     docker.withRegistry('',DOCKER_PASS) {
