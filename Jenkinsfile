@@ -49,6 +49,25 @@ pipeline {
                 '''
             }
         }
-		
+		stage("SonarQube Analysis") {
+            steps {
+                withSonarQubeEnv('sonarqube-server') {
+                    sh '''
+                    ${SCANNER_HOME}/bin/sonar-scanner \
+                      -Dsonar.projectKey=flask-app-pipeline \
+                      -Dsonar.sources=. \
+                      -Dsonar.language=py \
+                      -Dsonar.python.version=3
+                    '''
+                }
+            }
+        }
+		stage("Quality Gate") {
+    		steps {
+        		script {
+            		waitForQualityGate abortPipeline: true
+        }
+    }
+}		
 }
 }
