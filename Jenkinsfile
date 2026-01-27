@@ -4,7 +4,7 @@ pipeline {
     environment {
         APP_NAME = "flask-app-pipeline"
         VENV = "venv"
-        SCANNER_HOME = tool 'sonarqube-scanner'
+        
         RELEASE = "1.0.0"
         DOCKER_USER = "sangnt8386"
         DOCKER_PASS = 'dockerhub'
